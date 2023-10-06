@@ -26,13 +26,13 @@ public class PrivateParticipationRequestController {
     @ResponseStatus(HttpStatus.CREATED)
     public ParticipationRequestDto createRequest(@PathVariable Long userId,
                                                  @RequestParam Long eventId) {
-        log.debug("/create participation request\nIncome parameters: userId: {}, eventId: {}", userId, eventId);
+       // log.debug("/create participation request\nIncome parameters: userId: {}, eventId: {}", userId, eventId);
         return requestService.createRequest(userId, eventId);
     }
 
     @GetMapping("/{userId}/requests")
     public List<ParticipationRequestDto> getRequestsByUser(@PathVariable Long userId) {
-        log.debug("/get requests by user\nIncome userId: {}", userId);
+      //  log.debug("/get requests by user\nIncome userId: {}", userId);
         return requestService.getRequestsByUser(userId);
     }
 
@@ -49,15 +49,15 @@ public class PrivateParticipationRequestController {
                                                                @PathVariable Long eventId,
                                                                @RequestBody
                                                                     EventRequestStatusUpdateRequest requestDto) {
-        log.debug("/change requests status\nIncome userId: {}, eventId: {}, requestDto: {}", userId, eventId,
-                requestDto.toString());
+        //log.debug("/change requests status\nIncome userId: {}, eventId: {}, requestDto: {}", userId, eventId,
+        //        requestDto.toString());
         return requestService.changeRequestsStatus(userId, eventId, requestDto);
     }
 
     @GetMapping("/{userId}/events/{eventId}/requests")
     public List<ParticipationRequestDto> getEventUserRequests(@PathVariable Long userId,
                                                            @PathVariable Long eventId) {
-        log.debug("/get requests by user and event\nIncome userId: {}, eventId: {}", userId, eventId);
+        //log.debug("/get requests by user and event\nIncome userId: {}, eventId: {}", userId, eventId);
         return requestService.getRequestsByUserAndEvent(userId, eventId);
     }
 }
