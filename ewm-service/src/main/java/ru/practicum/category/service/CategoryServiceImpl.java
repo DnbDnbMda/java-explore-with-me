@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final EventRepository eventRepository;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public CategoryDto createCategory(NewCategoryDto categoryRequestDto) {
         log.debug("/create category");
         Category savedCategory = categoryRepository.save(CategoryMapper.toModel(categoryRequestDto));
@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void deleteCategory(Long catId) {
         log.debug("/delete category");
         getExistedCategory(catId);
@@ -67,7 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public CategoryDto updateCategory(Long catId, NewCategoryDto categoryRequestDto) throws NotFoundException {
         log.debug("/update category");
         Category existedCategory = getExistedCategory(catId);
