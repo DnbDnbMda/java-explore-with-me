@@ -77,6 +77,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category updatedCategory = categoryRepository.save(CategoryMapper.toModel(categoryRequestDto));
         return CategoryMapper.toDto(updatedCategory);
     }
+
     private void checkConstraintUsingEvents(Long catId) throws FieldConflictException {
         List<Event> usingEvents = eventRepository.findAllByCategory_Id(catId);
         if (usingEvents.size() != 0) throw new FieldConflictException("Many events using deleting category");
