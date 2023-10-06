@@ -30,8 +30,7 @@ public class PrivateEventController {
     @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto createEvent(@PathVariable Long userId,
                                     @Valid @RequestBody NewEventDto eventRequestDto) {
-        log.debug("/create event");
-        log.debug("Income parameters: user id: {}, event dto: {}", userId, eventRequestDto.toString());
+        log.debug("/create event\nIncome parameters: user id: {}, event dto: {}", userId, eventRequestDto.toString());
         return eventService.createEvent(userId, eventRequestDto);
     }
 
@@ -39,8 +38,7 @@ public class PrivateEventController {
     public List<EventShortDto> getEventsByUser(@PathVariable Long userId,
                                                @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
                                                @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.debug("/get events by user");
-        log.debug("Income userId: {}", userId);
+        log.debug("/get events by user\nIncome userId: {}", userId);
         return eventService.getEventsByUser(userId, from, size);
     }
 
@@ -48,16 +46,14 @@ public class PrivateEventController {
     public EventFullDto updateEvent(@PathVariable Long userId,
                                     @PathVariable Long eventId,
                                     @Valid @RequestBody UpdateEventUserRequest eventDto) {
-        log.debug("/update event");
-        log.debug("Income userId: {}, eventId: {}, eventDto: {}", userId, eventId, eventDto.toString());
+        log.debug("/update event\nIncome userId: {}, eventId: {}, eventDto: {}", userId, eventId, eventDto.toString());
         return eventService.updateEventUser(userId, eventId, eventDto);
     }
 
     @GetMapping("/{userId}/events/{eventId}")
     public EventFullDto getEventByUser(@PathVariable Long userId,
                                        @PathVariable Long eventId) {
-        log.debug("/get event by user");
-        log.debug("Income userId: {}, eventId: {}", userId, eventId);
+        log.debug("/get event by user\nIncome userId: {}, eventId: {}", userId, eventId);
         return eventService.getEventByUser(userId, eventId);
     }
 }

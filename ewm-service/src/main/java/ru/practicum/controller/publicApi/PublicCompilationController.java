@@ -27,15 +27,13 @@ public class PublicCompilationController {
     public List<CompilationDto> getAllCompilations(@RequestParam(required = false) Boolean pinned,
                                                    @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
                                                    @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.debug("/get all compilations");
-        log.debug("Income: pinned: {}, from: {}, size: {}", pinned, from, size);
+        log.debug("/get all compilations\nIncome: pinned: {}, from: {}, size: {}", pinned, from, size);
         return compilationService.getAllCompilations(pinned, from, size);
     }
 
     @GetMapping("/compilations/{compId}")
     public CompilationDto getCompilationById(@PathVariable Long compId) {
-        log.debug("/get compilation by id");
-        log.debug("Income compId: {}", compId);
+        log.debug("/get compilation by id\nIncome compId: {}", compId);
         return compilationService.getCompilationById(compId);
     }
 }
