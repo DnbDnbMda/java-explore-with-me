@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserDto> getAllUsers(Long[] ids, Integer from, Integer size) {
         log.debug("/get all users");
         if (ids == null) {

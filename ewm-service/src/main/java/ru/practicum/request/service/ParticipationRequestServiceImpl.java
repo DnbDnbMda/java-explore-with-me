@@ -51,6 +51,7 @@ public class ParticipationRequestServiceImpl implements ParticipationRequestServ
     }
 
     @Override
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public List<ParticipationRequestDto> getRequestsByUser(Long userId) {
         log.debug("/get requests by user");
         getExistedUser(userId);
@@ -60,6 +61,7 @@ public class ParticipationRequestServiceImpl implements ParticipationRequestServ
     }
 
     @Override
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public List<ParticipationRequestDto> getRequestsByUserAndEvent(Long userId, Long eventId) {
         log.debug("/get requests by event and user");
         getExistedUser(userId);

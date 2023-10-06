@@ -89,6 +89,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public List<EventShortDto> getEventsByUser(Long userId, Integer from, Integer size) {
         log.debug("/get events by user");
         getExistedUser(userId);
@@ -102,6 +103,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public EventFullDto getEventByUser(Long userId, Long eventId) {
         log.debug("/get event by user");
         getExistedUser(userId);
@@ -112,6 +114,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public EventFullDto getEventById(Long eventId, HttpServletRequest request) {
         log.debug("/get event by id");
         Event existedEvent = getExistedEvent(eventId);
@@ -154,6 +157,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public List<EventFullDto> searchEventsAdmin(List<Long> users,
                                                 List<EventState> states,
                                                 List<Long> categories,
