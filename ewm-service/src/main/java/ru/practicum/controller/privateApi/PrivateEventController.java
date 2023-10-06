@@ -46,14 +46,12 @@ public class PrivateEventController {
     public EventFullDto updateEvent(@PathVariable Long userId,
                                     @PathVariable Long eventId,
                                     @Valid @RequestBody UpdateEventUserRequest eventDto) {
-        //log.debug("/update event\nIncome userId: {}, eventId: {}, eventDto: {}", userId, eventId, eventDto.toString());
         return eventService.updateEventUser(userId, eventId, eventDto);
     }
 
     @GetMapping("/{userId}/events/{eventId}")
     public EventFullDto getEventByUser(@PathVariable Long userId,
                                        @PathVariable Long eventId) {
-        //log.debug("/get event by user\nIncome userId: {}, eventId: {}", userId, eventId);
         return eventService.getEventByUser(userId, eventId);
     }
 }
