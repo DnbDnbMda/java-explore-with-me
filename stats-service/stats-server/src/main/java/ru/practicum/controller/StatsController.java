@@ -39,7 +39,7 @@ public class StatsController {
             @RequestParam(name = "uris", required = false) String[] uris,
             @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
 
-        log.debug("/getViewStats\nPeriod to search {} - {}\nURIs to search {}\nUnique {}", start, end, uris, unique);
+        //log.debug("/getViewStats\nPeriod to search {} - {} \nURIs to search {} \nUnique {}", start, end, uris, unique);
         return service.getViewStats(start, end, uris, unique);
     }
 }
