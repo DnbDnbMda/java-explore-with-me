@@ -87,6 +87,7 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public List<CompilationDto> getAllCompilations(Boolean pinned, Integer from, Integer size) {
         log.debug("/get all compilations");
         List<Compilation> searchedCompilations =
@@ -105,6 +106,7 @@ public class CompilationServiceImpl implements CompilationService {
     }
 
     @Override
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public CompilationDto getCompilationById(Long compId) {
         log.debug("/get compilation by id");
         Compilation compilation = getExistedCompilation(compId);
