@@ -28,7 +28,6 @@ public class StatsController {
     @PostMapping("/hit")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveEndpointHit(@Valid @RequestBody HitRequestDto requestDto) {
-        log.debug("/saveEndpointHit\nIncome DTO: {}", requestDto);
         service.saveHit(ModelToDtoMapper.toHitModel(requestDto));
     }
 
@@ -38,8 +37,6 @@ public class StatsController {
             @RequestParam("end") @DateTimeFormat(pattern = datetimePattern) LocalDateTime end,
             @RequestParam(name = "uris", required = false) String[] uris,
             @RequestParam(name = "unique", defaultValue = "false") Boolean unique) {
-
-        //log.debug("/getViewStats\nPeriod to search {} - {} \nURIs to search {} \nUnique {}", start, end, uris, unique);
         return service.getViewStats(start, end, uris, unique);
     }
 }
