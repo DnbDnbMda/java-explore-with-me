@@ -24,7 +24,6 @@ import ru.practicum.utils.PageConfig;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Transactional(readOnly = true)
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -51,6 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CategoryDto> getAllCategories(Integer from, Integer size) {
         log.debug("/get all categories");
         return categoryRepository.findAll(new PageConfig(from, size, Sort.unsorted())).stream()
@@ -59,6 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CategoryDto getCategoryById(Long catId) {
         log.debug("/get category by id");
         return CategoryMapper.toDto(getExistedCategory(catId));
@@ -76,17 +77,19 @@ public class CategoryServiceImpl implements CategoryService {
         Category updatedCategory = categoryRepository.save(CategoryMapper.toModel(categoryRequestDto));
         return CategoryMapper.toDto(updatedCategory);
     }
-
+    @Transactional(readOnly = true)
     private void checkConstraintUsingEvents(Long catId) throws FieldConflictException {
         List<Event> usingEvents = eventRepository.findAllByCategory_Id(catId);
         if (usingEvents.size() != 0) throw new FieldConflictException("Many events using deleting category");
     }
 
+    @Transactional(readOnly = true)
     private Category getExistedCategory(Long catId) throws NotFoundException {
         return categoryRepository.findById(catId)
                 .orElseThrow(() -> new NotFoundException("Category with id=" + catId + " was not found"));
     }
 
+    @Transactional(readOnly = true)
     private void checkConstraintNameExisted(String newName, Long catId) throws FieldConflictException {
         if (categoryRepository.findByNameContainsIgnoreCaseAndIdIsNot(newName, catId).size() != 0) {
             throw new FieldConflictException("Field: name. Error: name is already exists");
