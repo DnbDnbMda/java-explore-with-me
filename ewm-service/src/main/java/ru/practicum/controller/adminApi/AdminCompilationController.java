@@ -25,21 +25,18 @@ public class AdminCompilationController {
     @PostMapping("/compilations")
     @ResponseStatus(HttpStatus.CREATED)
     public CompilationDto createCompilation(@Valid @RequestBody NewCompilationDto compilationDto) {
-        log.debug("/create compilation\nIncome dto: {}", compilationDto.toString());
         return compilationService.createCompilation(compilationDto);
     }
 
     @DeleteMapping("/compilations/{compId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCompilation(@PathVariable Long compId) {
-        log.debug("/delete compilation\nIncome: compId: {}", compId);
         compilationService.deleteCompilation(compId);
     }
 
     @PatchMapping("/compilations/{compId}")
     public CompilationDto updateCompilation(@PathVariable Long compId,
                                             @Valid @RequestBody UpdateCompilationRequest updateCompilationDto) {
-        log.debug("/update compilation");
         return compilationService.updateCompilation(compId, updateCompilationDto);
     }
 }

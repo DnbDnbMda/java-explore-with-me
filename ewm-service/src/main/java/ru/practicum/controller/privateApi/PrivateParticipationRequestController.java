@@ -26,13 +26,11 @@ public class PrivateParticipationRequestController {
     @ResponseStatus(HttpStatus.CREATED)
     public ParticipationRequestDto createRequest(@PathVariable Long userId,
                                                  @RequestParam Long eventId) {
-        // log.debug("/create participation request\nIncome parameters: userId: {}, eventId: {}", userId, eventId);
         return requestService.createRequest(userId, eventId);
     }
 
     @GetMapping("/{userId}/requests")
     public List<ParticipationRequestDto> getRequestsByUser(@PathVariable Long userId) {
-        //  log.debug("/get requests by user\nIncome userId: {}", userId);
         return requestService.getRequestsByUser(userId);
     }
 

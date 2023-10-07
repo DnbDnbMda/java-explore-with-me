@@ -39,15 +39,12 @@ public class AdminEventController {
             LocalDateTime rangeEnd,
             @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
             @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.debug("/get events\nIncome: users: {}, states: {}, categories: {}, rangeStart: {}, rangeEnd: {}, " +
-                        "from: {}, size: {}", users, states, categories, rangeStart, rangeEnd, from, size);
         return eventService.searchEventsAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
     @PatchMapping("/events/{eventId}")
     public EventFullDto updateEvent(@PathVariable Long eventId,
                                     @Valid @RequestBody UpdateEventUserRequest eventDto) {
-        log.debug("/updateEvent\nIncome parameters: eventId: {}, eventDto: {}", eventId, eventDto.toString());
         return eventService.updateEventAdmin(eventId, eventDto);
     }
 }

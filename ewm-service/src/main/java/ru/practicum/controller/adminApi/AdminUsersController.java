@@ -28,21 +28,18 @@ public class AdminUsersController {
     public List<UserDto> getAllUsers(@RequestParam(required = false) Long[] ids,
                                      @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
                                      @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.debug("/Income parameters: userIds = {}, from = {}, size = {}", ids, from, size);
         return adminService.getAllUsers(ids, from, size);
     }
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createUser(@Valid @RequestBody NewUserRequest userRequestDto) {
-        log.debug("UserDto to create: {}", userRequestDto.toString());
         return adminService.createUser(userRequestDto);
     }
 
     @DeleteMapping("/users/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long userId) {
-        log.debug("/delete user\nЗапрошено удаление user с id: {}", userId);
         adminService.deleteUser(userId);
     }
 }

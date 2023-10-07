@@ -30,7 +30,6 @@ public class PrivateEventController {
     @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto createEvent(@PathVariable Long userId,
                                     @Valid @RequestBody NewEventDto eventRequestDto) {
-        log.debug("/create event\nIncome parameters: user id: {}, event dto: {}", userId, eventRequestDto.toString());
         return eventService.createEvent(userId, eventRequestDto);
     }
 
@@ -38,7 +37,6 @@ public class PrivateEventController {
     public List<EventShortDto> getEventsByUser(@PathVariable Long userId,
                                                @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
                                                @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.debug("/get events by user\nIncome userId: {}", userId);
         return eventService.getEventsByUser(userId, from, size);
     }
 
