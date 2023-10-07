@@ -9,15 +9,15 @@ import ru.practicum.category.dto.CategoryDto;
 public class CategoryMapper {
 
     public Category toModel(NewCategoryDto categoryRequestDto) {
-        Category model = new Category();
-        model.setName(categoryRequestDto.getName());
-        return model;
+        return Category.builder()
+                .name(categoryRequestDto.getName())
+                .build();
     }
 
     public CategoryDto toDto(Category category) {
-        CategoryDto dto = new CategoryDto();
-        dto.setId(category.getId());
-        dto.setName(category.getName());
-        return dto;
+        return CategoryDto.builder()
+                .id(category.getId())
+                .name(category.getName())
+                .build();
     }
 }
