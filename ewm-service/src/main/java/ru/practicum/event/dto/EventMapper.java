@@ -60,7 +60,7 @@ public class EventMapper {
                 .build();
     }
 
-    public EventFullDto toFullDto(Event model, Integer confirmedRequests, Integer views) {
+   /* public EventFullDto toFullDto(Event model, Integer confirmedRequests, Integer views) {
         EventFullDto dto = new EventFullDto();
         Statistic statistic = new Statistic(confirmedRequests, views);
         Location location = new Location(model.getLocationLat(), model.getLocationLon());
@@ -83,17 +83,41 @@ public class EventMapper {
         dto.setPublishedOn(model.getPublishedOn());
         dto.setState(model.getState());
         return dto;
+    }*/
+
+    public EventFullDto toFullDto(Event model, Integer confirmedRequests, Integer views) {
+        Statistic statistic = new Statistic(confirmedRequests, views);
+        Location location = new Location(model.getLocationLat(), model.getLocationLon());
+        UserShortDto userShortDto = new UserShortDto(model.getInitiator().getId(), model.getInitiator().getName());
+        CategoryDto categoryDto = new CategoryDto(model.getCategory().getId(), model.getCategory().getName());
+        ParticipationConfig participation = new ParticipationConfig(model.getRequestModeration(),
+                model.getParticipantLimit(),
+                model.getPaid(),
+                location,
+                model.getEventDate());
+
+        return EventFullDto.builder().title(model.getTitle())
+                .annotation(model.getAnnotation())
+                .description(model.getDescription())
+                .category(categoryDto)
+                .initiator(userShortDto)
+                .statistic(statistic)
+                .participationConfig(participation)
+                .createdOn(model.getCreatedOn())
+                .publishedOn(model.getPublishedOn())
+                .state(model.getState()).build();
     }
+
 
     public Event patchMappingToModel(UpdateEventUserRequest updateDto, Optional<Category> category, Event existEvent) {
         ObjectMapper mapper = ObjectMapperConfig.getPatchMapperConfig();
         Map<String, String> updateDtoMap = mapper.convertValue(updateDto, Map.class);
         Map<String, String> existedEventMap = mapper.convertValue(existEvent, Map.class);
         Map<String, String> changedFields = updateDtoMap.entrySet().stream()
-                                        .filter(entry -> entry.getValue() != null
-                                                && !entry.getKey().equals("location")
-                                                && !entry.getKey().equals("category"))
-                                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                .filter(entry -> entry.getValue() != null
+                        && !entry.getKey().equals("location")
+                        && !entry.getKey().equals("category"))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         mapStateActionToState(changedFields);
         existedEventMap.putAll(changedFields);
         Event updatedEvent = mapper.convertValue(existedEventMap, Event.class);
