@@ -9,12 +9,12 @@ import ru.practicum.dto.ViewStatsDto;
 public class ModelToDtoMapper {
 
     public EndpointHit toHitModel(HitRequestDto requestDto) {
-        EndpointHit model = new EndpointHit();
-        model.setApp(requestDto.getApp());
-        model.setUri(requestDto.getUri());
-        model.setIp(requestDto.getIp());
-        model.setTimestamp(requestDto.getTimestamp());
-        return model;
+        return EndpointHit.builder()
+                .app(requestDto.getApp())
+                .uri(requestDto.getUri())
+                .ip(requestDto.getIp())
+                .timestamp(requestDto.getTimestamp())
+                .build();
     }
 
     public ViewStatsDto toViewStatsDto(ViewStats viewStats) {
