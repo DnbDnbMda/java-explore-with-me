@@ -12,21 +12,21 @@ import java.time.LocalDateTime;
 public class ParticipationRequestMapper {
 
     public ParticipationRequest toModel(User user, Event event) {
-        ParticipationRequest model = new ParticipationRequest();
-        model.setRequester(user);
-        model.setEvent(event);
-        model.setCreated(LocalDateTime.now());
-        model.setStatus(ParticipationRequestState.PENDING);
-        return model;
+        return ParticipationRequest.builder()
+                .requester(user)
+                .event(event)
+                .created(LocalDateTime.now())
+                .status(ParticipationRequestState.PENDING)
+                .build();
     }
 
     public ParticipationRequestDto toDto(ParticipationRequest model) {
-        ParticipationRequestDto dto = new ParticipationRequestDto();
-        dto.setCreated(model.getCreated());
-        dto.setStatus(model.getStatus());
-        dto.setId(model.getId());
-        dto.setEvent(model.getEvent().getId());
-        dto.setRequester(model.getRequester().getId());
-        return dto;
+        return ParticipationRequestDto.builder()
+                .created(model.getCreated())
+                .status(model.getStatus())
+                .id(model.getId())
+                .event(model.getEvent().getId())
+                .requester(model.getRequester().getId())
+                .build();
     }
 }

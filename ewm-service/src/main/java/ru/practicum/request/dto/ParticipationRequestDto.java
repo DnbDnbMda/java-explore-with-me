@@ -7,6 +7,7 @@ import ru.practicum.utils.Constant;
 
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
