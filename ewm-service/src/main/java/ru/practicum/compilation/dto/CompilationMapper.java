@@ -17,20 +17,20 @@ import java.util.stream.Collectors;
 public class CompilationMapper {
 
     public Compilation toModel(NewCompilationDto dto, List<Event> events) {
-        Compilation model = new Compilation();
-        model.setTitle(dto.getTitle());
-        model.setPinned(dto.getPinned());
-        model.setEvents(events);
-        return model;
+        return Compilation.builder()
+                .title(dto.getTitle())
+                .pinned(dto.getPinned())
+                .events(events).build();
     }
 
     public CompilationDto toDto(Compilation model, List<EventShortDto> eventShortDtos) {
-        CompilationDto dto = new CompilationDto();
-        dto.setId(model.getId());
-        dto.setTitle(model.getTitle());
-        dto.setPinned(model.getPinned());
-        dto.setEvents(eventShortDtos);
-        return dto;
+        return CompilationDto.builder()
+                .id(model.getId())
+                .title(model.getTitle())
+                .pinned(model.getPinned())
+                .events(eventShortDtos)
+                .build();
+
     }
 
     public Compilation patchMappingToModel(Compilation existedCompilation,
