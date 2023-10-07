@@ -9,6 +9,7 @@ import ru.practicum.utils.Constant;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor

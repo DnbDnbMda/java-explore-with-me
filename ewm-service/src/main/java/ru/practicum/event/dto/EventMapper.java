@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EventMapper {
 
-    public Event toModel(NewEventDto dto) {
+  /*  public Event toModel(NewEventDto dto) {
         Event model = new Event();
         model.setAnnotation(dto.getAnnotation());
         Category category = new Category();
@@ -41,6 +41,23 @@ public class EventMapper {
         model.setState(EventState.PENDING);
         model.setTitle(dto.getTitle());
         return model;
+    }*/
+
+    public Event toModel(NewEventDto dto) {
+        return Event.builder().annotation(dto.getAnnotation())
+                .category(Category.builder().id(dto.getCategory()).build())
+                .eventDate(dto.getEventDate())
+                .createdOn(LocalDateTime.now())
+                .description(dto.getDescription())
+                .eventDate(dto.getEventDate())
+                .locationLat(dto.getLocation().getLat())
+                .locationLon(dto.getLocation().getLon())
+                .paid(dto.getPaid())
+                .participantLimit(dto.getParticipantLimit())
+                .requestModeration(dto.getRequestModeration())
+                .state(EventState.PENDING)
+                .title(dto.getTitle())
+                .build();
     }
 
     public EventFullDto toFullDto(Event model, Integer confirmedRequests, Integer views) {
