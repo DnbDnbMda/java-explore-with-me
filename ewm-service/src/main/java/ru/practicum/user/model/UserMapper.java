@@ -7,17 +7,17 @@ import ru.practicum.user.dto.UserDto;
 @UtilityClass
 public class UserMapper {
     public User toModel(NewUserRequest dto) {
-        User model = new User();
-        model.setEmail(dto.getEmail());
-        model.setName(dto.getName());
-        return model;
+        return User.builder()
+                .email(dto.getEmail())
+                .name(dto.getName())
+                .build();
     }
 
     public UserDto toDto(User model) {
-        UserDto dto = new UserDto();
-        dto.setId(model.getId());
-        dto.setEmail(model.getEmail());
-        dto.setName(model.getName());
-        return dto;
+        return UserDto.builder()
+                .id(model.getId())
+                .email(model.getEmail())
+                .name(model.getName())
+                .build();
     }
 }
