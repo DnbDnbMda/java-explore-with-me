@@ -17,7 +17,7 @@ import ru.practicum.utils.PageConfig;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Transactional(readOnly = true)
+@Transactional
 @Service
 @Slf4j
 @RequiredArgsConstructor
