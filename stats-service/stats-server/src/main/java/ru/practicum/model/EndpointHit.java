@@ -1,9 +1,6 @@
 package ru.practicum.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.practicum.constant.StatsConstant;
@@ -16,6 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "hits")
 public class EndpointHit {
     @Id
