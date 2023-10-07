@@ -2,6 +2,7 @@ package ru.practicum.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@RequiredArgsConstructor
 @Table(name = "hits")
 public class EndpointHit {
     @Id
