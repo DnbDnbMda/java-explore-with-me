@@ -23,26 +23,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EventMapper {
 
-  /*  public Event toModel(NewEventDto dto) {
-        Event model = new Event();
-        model.setAnnotation(dto.getAnnotation());
-        Category category = new Category();
-        category.setId(dto.getCategory());
-        model.setCategory(category);
-        model.setEventDate(dto.getEventDate());
-        model.setCreatedOn(LocalDateTime.now());
-        model.setDescription(dto.getDescription());
-        model.setEventDate(dto.getEventDate());
-        model.setLocationLat(dto.getLocation().getLat());
-        model.setLocationLon(dto.getLocation().getLon());
-        model.setPaid(dto.getPaid());
-        model.setParticipantLimit(dto.getParticipantLimit());
-        model.setRequestModeration(dto.getRequestModeration());
-        model.setState(EventState.PENDING);
-        model.setTitle(dto.getTitle());
-        return model;
-    }*/
-
     public Event toModel(NewEventDto dto) {
         return Event.builder().annotation(dto.getAnnotation())
                 .category(Category.builder().id(dto.getCategory()).build())
@@ -60,17 +40,17 @@ public class EventMapper {
                 .build();
     }
 
-   /* public EventFullDto toFullDto(Event model, Integer confirmedRequests, Integer views) {
+    public EventFullDto toFullDto(Event model, Integer confirmedRequests, Integer views) {
         EventFullDto dto = new EventFullDto();
         Statistic statistic = new Statistic(confirmedRequests, views);
         Location location = new Location(model.getLocationLat(), model.getLocationLon());
         UserShortDto userShortDto = new UserShortDto(model.getInitiator().getId(), model.getInitiator().getName());
         CategoryDto categoryDto = new CategoryDto(model.getCategory().getId(), model.getCategory().getName());
         ParticipationConfig participation = new ParticipationConfig(model.getRequestModeration(),
-                                                                    model.getParticipantLimit(),
-                                                                    model.getPaid(),
-                                                                    location,
-                                                                    model.getEventDate());
+                model.getParticipantLimit(),
+                model.getPaid(),
+                location,
+                model.getEventDate());
         dto.setId(model.getId());
         dto.setTitle(model.getTitle());
         dto.setAnnotation(model.getAnnotation());
@@ -83,31 +63,7 @@ public class EventMapper {
         dto.setPublishedOn(model.getPublishedOn());
         dto.setState(model.getState());
         return dto;
-    }*/
-
-    public EventFullDto toFullDto(Event model, Integer confirmedRequests, Integer views) {
-        Statistic statistic = new Statistic(confirmedRequests, views);
-        Location location = new Location(model.getLocationLat(), model.getLocationLon());
-        UserShortDto userShortDto = new UserShortDto(model.getInitiator().getId(), model.getInitiator().getName());
-        CategoryDto categoryDto = new CategoryDto(model.getCategory().getId(), model.getCategory().getName());
-        ParticipationConfig participation = new ParticipationConfig(model.getRequestModeration(),
-                model.getParticipantLimit(),
-                model.getPaid(),
-                location,
-                model.getEventDate());
-
-        return EventFullDto.builder().title(model.getTitle())
-                .annotation(model.getAnnotation())
-                .description(model.getDescription())
-                .category(categoryDto)
-                .initiator(userShortDto)
-                .statistic(statistic)
-                .participationConfig(participation)
-                .createdOn(model.getCreatedOn())
-                .publishedOn(model.getPublishedOn())
-                .state(model.getState()).build();
     }
-
 
     public Event patchMappingToModel(UpdateEventUserRequest updateDto, Optional<Category> category, Event existEvent) {
         ObjectMapper mapper = ObjectMapperConfig.getPatchMapperConfig();
@@ -132,24 +88,23 @@ public class EventMapper {
     }
 
     public EventShortDto toShortDto(Event model, Integer confirmedRequests, Integer views) {
-        log.debug("/event to short dto");
-        EventShortDto dto = new EventShortDto();
-        dto.setId(model.getId());
-        dto.setAnnotation(model.getAnnotation());
-        dto.setConfirmedRequests(confirmedRequests);
-        dto.setPaid(model.getPaid());
-        dto.setViews(views);
-        dto.setTitle(model.getTitle());
-        dto.setEventDate(model.getEventDate());
-        UserShortDto userDto = new UserShortDto();
-        userDto.setId(model.getInitiator().getId());
-        userDto.setName(model.getInitiator().getName());
-        dto.setInitiator(userDto);
-        CategoryDto catDto = new CategoryDto();
-        catDto.setId(model.getCategory().getId());
-        catDto.setName(model.getCategory().getName());
-        dto.setCategory(catDto);
-        return dto;
+        return EventShortDto.builder()
+                .id(model.getId())
+                .annotation(model.getAnnotation())
+                .confirmedRequests(confirmedRequests)
+                .paid(model.getPaid())
+                .views(views)
+                .title(model.getTitle())
+                .eventDate(model.getEventDate())
+                .initiator(UserShortDto.builder()
+                        .id(model.getInitiator().getId())
+                        .name(model.getInitiator().getName())
+                        .build())
+                .category(CategoryDto.builder()
+                        .id(model.getCategory().getId())
+                        .name(model.getCategory().getName())
+                        .build())
+                .build();
     }
 
     private void mapStateActionToState(Map<String, String> changedFields) {

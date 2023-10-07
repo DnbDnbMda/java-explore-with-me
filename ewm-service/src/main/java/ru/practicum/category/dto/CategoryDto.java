@@ -2,6 +2,7 @@ package ru.practicum.category.dto;
 
 import lombok.*;
 
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
